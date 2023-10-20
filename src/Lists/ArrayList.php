@@ -19,6 +19,7 @@ class ArrayList implements ListInterface
     }
 
     public function push(mixed $element = null): void {
+        
         $this->elements[] = $element;
     }
 
@@ -34,9 +35,13 @@ class ArrayList implements ListInterface
         $this->elements = [];
     }
 
-    public function includes(mixed $element): bool {}
+    public function includes(mixed $element): bool {
+        return in_array($element, $this->elements, true);
+    }
 
-    public function isEmpty(): bool {}
+    public function isEmpty(): bool {
+    return empty($this->elements);
+    }
 
     public function indexOf(mixed $element): int {
         foreach($this->elements as $key => $value){
@@ -47,11 +52,14 @@ class ArrayList implements ListInterface
     }
     public function remove(int $index): void {
        unset($this->elements[$index]);
+       array_values($this->elements);
     }
 
     public function size(): int {
         return count($this->elements);
     }
 
-    public function toArray(): array {}
+    public function toArray(): array {
+
+    }
 }
