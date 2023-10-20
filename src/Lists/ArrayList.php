@@ -18,23 +18,40 @@ class ArrayList implements ListInterface
         return json_encode($this->elements, JSON_PRETTY_PRINT);
     }
 
-    public function push(mixed $element = null): void {}
+    public function push(mixed $element = null): void {
+        $this->elements[] = $element;
+    }
 
-    public function get(int $index): mixed {}
+    public function get(int $index): mixed {
+        return $this->elements[$index];
+    }
 
-    public function set(int $index, mixed $element): void {}
+    public function set(int $index, mixed $element): void {
+        $this->elements[$index] = $element;
+    }
 
-    public function clear(): void {}
+    public function clear(): void {
+        $this->elements = [];
+    }
 
     public function includes(mixed $element): bool {}
 
     public function isEmpty(): bool {}
 
-    public function indexOf(mixed $element): int {}
+    public function indexOf(mixed $element): int {
+        foreach($this->elements as $key => $value){
+            if($value === $element){
+                return $key;
+            }
+        }
+    }
+    public function remove(int $index): void {
+       unset($this->elements[$index]);
+    }
 
-    public function remove(int $index): void {}
-
-    public function size(): int {}
+    public function size(): int {
+        return count($this->elements);
+    }
 
     public function toArray(): array {}
 }
