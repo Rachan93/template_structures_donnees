@@ -27,11 +27,19 @@ class ArrayList implements ListInterface
     }
 
     public function get(int $index): mixed {
+        if(count($this->elements) === 0){
+            throw new \InvalidArgumentException("Couldn't get any value at specified index");
+        }else{
         return $this->elements[$index];
+        }
     }
 
     public function set(int $index, mixed $element): void {
+        if(count($this->elements) === 0){
+            throw new \InvalidArgumentException("Couldn't set the value at specified index");
+        }else{
         $this->elements[$index] = $element;
+        }
     }
 
     public function clear(): void {
@@ -43,19 +51,30 @@ class ArrayList implements ListInterface
     }
 
     public function isEmpty(): bool {
-    return empty($this->elements);
+        return empty($this->elements);
     }
 
     public function indexOf(mixed $element): int {
-        foreach($this->elements as $key => $value){
-            if($value === $element){
-                return $key;
+        if(count($this->elements) === 0){
+            throw new \InvalidArgumentException("Couldn't find an index corresponding to specified value");
+        
+        }else{
+        
+            foreach($this->elements as $key => $value){
+                if($value === $element){
+                    return $key;
+                }
             }
         }
     }
     public function remove(int $index): void {
+        if(count($this->elements) === 0){
+            throw new \InvalidArgumentException("Couldn't remove value at specified index");
+        
+        }else{
        unset($this->elements[$index]);
        $this->elements = array_values($this->elements);
+        }
     }
 
     public function size(): int {
@@ -63,6 +82,6 @@ class ArrayList implements ListInterface
     }
 
     public function toArray(): array {
-
+        return $this->elements;
     }
 }
