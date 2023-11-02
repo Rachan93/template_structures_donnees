@@ -100,29 +100,29 @@ class LinkedList implements ListInterface
     }
 
     public function indexOf(mixed $element): int {
-        
         $current = $this->head->getNext();
         $i = 0;
+    
         while ($current !== null) { //oui je sais j'aurais pu utiliser une boucle for mais flemme (et le recyclage c'est bon pour la planète !), et puis aussi ce tas de merde est plus marrant :)
-            
             if ($current->getElement() === $element) {
                 return $i;
             }
-                $current = $current->getNext();
-                $i++;        
+            $current = $current->getNext();
+            $i++;
         }
-        
+    
+        throw new \Exception("blablabla je changerai les exceptions plus tard");
     }
     
 
     public function remove(int $index): void {
         
         $current = $this->head;
-        
+        if ($index < 0 || $index >= $this->size) {
+            throw new \Exception("Specified index out of bounds");
+        }
         for ($i = 0; $i < $index; $i++) {
-            if ($current->getNext() === null) {
-                throw new \Exception("Specified index out of bounds");
-            }
+            
                 $current = $current->getNext();
             }
         
@@ -136,5 +136,15 @@ class LinkedList implements ListInterface
         return $this->size;
     }
 
-    public function toArray(): array {}
+    public function toArray(): array {
+        
+            $current = $this->head->getNext();
+            $array = [];
+            while ($current !== null) {
+                $array[] = $current->getElement();
+                $current = $current->getNext();
+                
+            }
+            return $array;        
+    }
 }
