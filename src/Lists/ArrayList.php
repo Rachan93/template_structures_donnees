@@ -27,10 +27,10 @@ class ArrayList implements ListInterface
     }
 
     public function get(int $index): mixed {
-        if(count($this->elements) === 0){
+        if ($index < 0 || $index >= count($this->elements)) {
             throw new \InvalidArgumentException("Couldn't get any value at specified index");
-        }else{
-        return $this->elements[$index];
+        } else {
+            return $this->elements[$index];
         }
     }
 
