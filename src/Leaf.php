@@ -19,19 +19,43 @@ class Leaf
         $this->right = $right;
     }
 
-    public function getKey(): int|string {}
+    public function getKey(): int|string
+    {
+        return $this->key;
+    }
 
-    public function setKey(int|string $key): void {}
+    public function setKey(int|string $key): void
+    {
+        $this->key = $key;
+    }
 
-    public function getElement(): mixed {}
+    public function getElement(): mixed
+    {
+        return $this->element;
+    }
 
-    public function setElement(mixed $element): void {}
+    public function setElement(mixed $element): void
+    {
+        $this->element = $element;
+    }
 
-    public function getLeft(): ?Leaf {}
+    public function getLeft(): ?Leaf
+    {
+        return $this->left;
+    }
 
-    public function setLeft(?Leaf $left): void {}
+    public function setLeft(?Leaf $left): void
+    {
+        $this->left = $left;
+    }
 
-    public function getRight(): ?Leaf {}
+    public function getRight(): ?Leaf
+    {
+        return $this->right;
+    }
 
-    public function setRight(?Leaf $right): void {}
+    public function setRight(?Leaf $right): void
+    {
+        $this->right = $right;
+    }
 }

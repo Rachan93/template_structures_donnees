@@ -35,7 +35,7 @@ class LinkedList implements ListInterface
             $current->setNext($newNode);
             $this->size++;
         } else {
-            throw new \InvalidArgumentException("Type of the input element is different from the type of the existing elements.");
+            throw new \InvalidArgumentException("Type of the specified element is different from the type of the existing elements.");
         }
     }
     

@@ -20,7 +20,7 @@ class ArrayList implements ListInterface
 
     public function push(mixed $element = null): void {
         if(count($this->elements) !== 0 && gettype($element) !== gettype($this->elements[0])){
-            throw new \InvalidArgumentException("Type of the input element is different from the type of the existing elements.");
+            throw new \InvalidArgumentException("Type of the specified element is different from the type of the existing elements.");
         }
        else{ $this->elements[] = $element;
        }

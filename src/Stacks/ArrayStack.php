@@ -16,15 +16,48 @@ class ArrayStack implements StackInterface
         return json_encode($this->toArray(), JSON_PRETTY_PRINT);
     }
 
-    public function isEmpty(): bool {}
+    public function isEmpty(): bool
+    {
+        if(count($this->elements) === 0){
+            return true;
+        }else{
+            return false;
+        }
 
-    public function push(mixed $element): StackInterface {}
+    }
 
-    public function pop(): StackInterface {}
+    public function push(mixed $element): StackInterface
+    {
+        $this->elements[] = $element;
+        return $this;
+    }
 
-    public function top(): mixed {}
+    public function pop(): StackInterface
+    {
+        if ($this->isEmpty()) {
+            throw new \Exception('Stack is empty');
+        }
 
-    public function toArray(): array {}
+        array_pop($this->elements);
+        return $this;
+    }
 
-    public function clear(): void {}
+    public function top(): mixed
+    {
+        if ($this->isEmpty()) {
+            throw new \Exception('Stack is empty');
+        }
+
+        return end($this->elements);
+    }
+
+    public function toArray(): array
+    {
+        return $this->elements;
+    }
+
+    public function clear(): void
+    {
+        $this->elements = [];
+    }
 }
