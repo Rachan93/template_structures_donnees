@@ -27,30 +27,56 @@ class SearchTree implements TreeInterface
     }
 
     public function insert(int|string $key, mixed $element): TreeInterface
-    {
-        $newLeaf = new Leaf($key, $element);
-
-        if ($this->root === null) {
-            $this->root = $newLeaf;
-        } else {
-            $this->insertRecursive($this->root, $newLeaf);
-        }
-
+{
+    $newLeaf = new Leaf($key, $element);
+    
+    if ($this->root === null) {
+        $this->root = $newLeaf;
         return $this;
     }
-
-    protected function insertRecursive(?Leaf &$node, Leaf $newLeaf): void
-    {
-        if ($node === null) {
-            $node = $newLeaf;
-        } elseif ($newLeaf->getKey() === $node->getKey()) {
-            $node->setElement($newLeaf->getElement());
-        } elseif ($newLeaf->getKey() < $node->getKey()) {
-            $this->insertRecursive($node->getLeft(), $newLeaf);
+    
+    $current = $this->root;
+    $parent = null;
+    
+    while ($current !== null) {
+        if ($key === $current->getKey()) {
+            $current->setElement($element);
+            return $this;
+        }
+    
+        $parent = $current;
+        
+        if ($key < $current->getKey()) {
+            $current = $current->getLeft();
         } else {
-            $this->insertRecursive($node->getRight(), $newLeaf);
+            $current = $current->getRight();
         }
     }
+    
+    if ($key < $parent->getKey()) {
+        $parent->setLeft($newLeaf);
+    } else {
+        $parent->setRight($newLeaf);
+    }
+    
+    return $this;
+}
+
+    
+
+    protected function insertRecursive(?Leaf &$node, Leaf $newLeaf): void
+{
+    if ($node === null) {
+        $node = $newLeaf;
+    } elseif ($newLeaf->getKey() === $node->getKey()) {
+        $node->setElement($newLeaf->getElement());
+    } elseif ($newLeaf->getKey() < $node->getKey()) {
+        $this->insertRecursive($node->getLeft(), $newLeaf);
+    } else {
+        $this->insertRecursive($node->getRight(), $newLeaf);
+    }
+}
+
 
     public function search(int|string $key): mixed
     {
@@ -124,13 +150,11 @@ class SearchTree implements TreeInterface
         if ($node === null) {
             return [];
         }
-    
-        return array_merge(
-            $this->toArrayRecursive($node->getLeft()),
-            [$node->getKey() => $node->getElement()],
-            $this->toArrayRecursive($node->getRight())
-        );
+        
+        $leftArray = $this->toArrayRecursive($node->getLeft());
+        $rightArray = $this->toArrayRecursive($node->getRight());
+        
+        return $leftArray + [$node->getKey() => $node->getElement()] + $rightArray;
     }
-    
 
 }
