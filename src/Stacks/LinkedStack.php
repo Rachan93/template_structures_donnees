@@ -22,15 +22,66 @@ class LinkedStack implements StackInterface
         return json_encode($this->toArray(), JSON_PRETTY_PRINT);
     }
 
-    public function isEmpty(): bool {}
+    public function isEmpty(): bool
+    {
+        return $this->size === 0;
+    }
 
-    public function push(mixed $element): StackInterface {}
+    public function push(mixed $element): StackInterface
+    {
+        $newNode = new Node($element);
+        $this->tail->setNext($newNode);
+        $this->tail = $newNode;
+        $this->size++;
+        return $this;
+    }
 
-    public function pop(): StackInterface {}
+    public function pop(): StackInterface
+    {
+        if ($this->isEmpty()) {
+            throw new \Exception('Stack is empty');
+        }
 
-    public function top(): mixed {}
+        $currentNode = $this->head;
 
-    public function toArray(): array {}
+        while ($currentNode->getNext() !== $this->tail) {
+            $currentNode = $currentNode->getNext();
+        }
 
-    public function clear(): void {}
+        $currentNode->setNext(null);
+        $this->tail = $currentNode;
+        $this->size--;
+
+        return $this;
+    }
+
+    public function top(): mixed
+    {
+        if ($this->isEmpty()) {
+            throw new \Exception('Stack is empty');
+        }
+
+        return $this->tail->getElement();
+    }
+
+    public function toArray(): array
+    {
+        $result = [];
+        $currentNode = $this->head->getNext();
+
+        while ($currentNode !== null) {
+            $result[] = $currentNode->getElement();
+            $currentNode = $currentNode->getNext();
+        }
+
+        return $result;
+    }
+
+
+    public function clear(): void
+    {
+        $this->head->setNext(null);
+        $this->tail = $this->head;
+        $this->size = 0;
+    }
 }
